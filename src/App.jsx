@@ -1,5 +1,3 @@
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
 import { Outlet } from "react-router-dom";
 function App() {
   return (
@@ -10,3 +8,4 @@ function App() {
 }
 
 export default App;
+s;

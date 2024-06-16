@@ -31,36 +31,66 @@ export class Auth {
     }
   }
   async verify() {
-    return await this.account.createVerification("http://localhost:5173");
+    try {
+      return await this.account.createVerification("http://localhost:5173");
+    } catch (error) {
+      console.log("error during verification: ", error);
+    }
+  }
+  async updateVerify({ userId, secret }) {
+    try {
+      return await this.account.updateVerification(userId, secret);
+    } catch (error) {
+      console.log("error during update verification", error);
+    }
   }
   async forgetPassword({ email }) {
-    return await this.account.createRecovery(
-      email,
-      "http://localhost:5173/forgot"
-    );
+    try {
+      return await this.account.createRecovery(
+        email,
+        "http://localhost:5173/forgot"
+      );
+    } catch (error) {
+      console.log("error during phase 1 of password", error);
+    }
   }
   async updatePassword({ userId, secret, password, repassword }) {
-    return await this.account.updateRecovery(
-      userId,
-      secret,
-      password,
-      repassword
-    );
+    try {
+      return await this.account.updateRecovery(
+        userId,
+        secret,
+        password,
+        repassword
+      );
+    } catch (error) {
+      console.log("error when updating password phase 2", error);
+    }
   }
   async getCurrentUser() {
     try {
       return await this.account.get();
     } catch (error) {
-      console.log("Appwrite serive :: getCurrentUser :: error", error);
+      console.log("error when getting user: ", error);
     }
 
     return null;
+  }
+  async Oauth() {
+    try {
+      return this.account.createOAuth2Session(
+        "google",
+        "http://localhost:5173",
+        "http://localhost:5173/failed"
+      );
+    } catch (error) {
+      console.log("erro in o-auth", error);
+    }
   }
   async logout() {
     try {
       return await this.account.deleteSessions();
     } catch (error) {
-      console.log(error);
+      console.log("error when deleting session: ", error);
     }
   }
 }
