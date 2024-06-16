@@ -9,11 +9,12 @@ export class Auth {
   }
   async signup({ name, email, password }) {
     try {
+      console.log(email, password);
       const user = await this.account.create(
         ID.unique(),
-        name,
         email,
-        password
+        password,
+        name
       );
       if (user) {
         return this.login({ email, password });
@@ -26,6 +27,7 @@ export class Auth {
   }
   async login({ email, password }) {
     try {
+      return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
       console.log("error in Login:", error);
     }
@@ -88,9 +90,14 @@ export class Auth {
   }
   async logout() {
     try {
-      return await this.account.deleteSessions();
+      return await this.account
+        .deleteSessions()
+        .then(console.log("logged out"));
     } catch (error) {
       console.log("error when deleting session: ", error);
     }
   }
 }
+
+const auth = new Auth();
+export default auth;

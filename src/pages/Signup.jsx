@@ -3,11 +3,32 @@ import { useForm } from "react-hook-form";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Darkmode from "../components/Darkmode";
+import auth from "../../auth/auth";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../../tools/authSlice";
 function Signup() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
-  function display(data) {
-    console.log(data);
-  }
+  const display = async (data) => {
+    const userData = await auth.signup(data);
+    if (userData) {
+      const verify = await auth.verify();
+      console.log(verify);
+      /* const urlParams = new URLSearchParams(window.location.search);
+      const secret = urlParams.get("secret");
+      const userId = urlParams.get("userId");
+      const satisfy = await auth.updateVerify(userId, secret);
+      if (satisfy) {
+        const userData = await auth.getCurrentUser();
+        if (userData) {
+          dispatch(login(userData));
+          navigate("/");
+        }
+      } */
+    }
+  };
   return (
     <div className="w-full h-screen flex justify-center items-center dark:bg-black">
       <div className=" mx-auto w-1/3">
@@ -34,7 +55,6 @@ function Signup() {
             labelClass=" dark:text-white block mb-1 font-medium"
             {...register(`email`, {
               required: true,
-              pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
             })}
           ></Input>
           <Input
