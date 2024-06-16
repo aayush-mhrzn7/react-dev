@@ -43,13 +43,13 @@ function Signup() {
               required: true,
             })}
           ></Input>
-          <Button type="submit" className="mt-2 w-full">
+          <Button type="submit" className="mt-2 bg-black w-full">
             Sign Up
           </Button>
         </form>
         <h3 className="mt-2 font-medium">Sign in by another way?</h3>
         <Button className="mt-2 w-full bg-[#DB4437] mb-2">Google</Button>
-        <Button className="mt-2 w-full">Apple</Button>
+        <Button className="mt-2 w-full bg-black">Apple</Button>
       </div>
     </div>
   );

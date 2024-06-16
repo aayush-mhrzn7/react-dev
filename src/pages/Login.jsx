@@ -38,13 +38,13 @@ function Login() {
           <a href="#" className="block font-medium">
             forgot password?
           </a>
-          <Button type="submit" className="mt-2 w-full">
+          <Button type="submit" className=" bg-black mt-2 w-full">
             Log In
           </Button>
         </form>
         <h3 className="my-2 font-medium">login by another way?</h3>
         <Button className="mt-2 w-full bg-[#DB4437] mb-2">Google</Button>
-        <Button className="mt-2 w-full">Apple</Button>
+        <Button className="mt-2 w-full bg-black">Apple</Button>
       </div>
     </div>
   );
