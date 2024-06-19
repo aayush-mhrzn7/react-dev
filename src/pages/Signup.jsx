@@ -13,21 +13,20 @@ function Signup() {
   const { register, handleSubmit } = useForm();
   const display = async (data) => {
     const userData = await auth.signup(data);
+    console.log(userData);
     if (userData) {
-      const verify = await auth.verify();
-      console.log(verify);
-      /* const urlParams = new URLSearchParams(window.location.search);
-      const secret = urlParams.get("secret");
-      const userId = urlParams.get("userId");
-      const satisfy = await auth.updateVerify(userId, secret);
-      if (satisfy) {
-        const userData = await auth.getCurrentUser();
-        if (userData) {
-          dispatch(login(userData));
-          navigate("/");
-        }
-      } */
+      const verification = await auth.verify();
     }
+    /*  if (userData) {
+      const userData = await auth.getCurrentUser();
+      if (userData) {
+        dispatch(login(userData));
+        navigate("/");
+      }
+    } */
+  };
+  const google = async () => {
+    return await auth.Oauth();
   };
   return (
     <div className="w-full h-screen flex justify-center items-center dark:bg-black">
@@ -77,11 +76,13 @@ function Signup() {
         <h3 className="mt-2 font-medium dark:text-white">
           Sign in by another way?
         </h3>
-        <Button className="mt-2 w-full bg-[#DB4437] font-semibold mb-2">
+        <Button
+          className="mt-2 w-full bg-[#DB4437] font-semibold mb-2 "
+          onClick={() => {
+            google();
+          }}
+        >
           Google
-        </Button>
-        <Button className="mt-2 w-full bg-black dark:bg-white font-semibold dark:text-black">
-          Apple
         </Button>
       </div>
     </div>

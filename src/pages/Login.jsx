@@ -11,6 +11,9 @@ function Login() {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const google = async () => {
+    return await auth.Oauth();
+  };
   const display = async (data) => {
     const userData = await auth.login(data);
     if (userData) {
@@ -50,7 +53,11 @@ function Login() {
               required: true,
             })}
           ></Input>
-          <a href="#" className="  dark:text-white block font-medium">
+          <a
+            href="#"
+            className="  dark:text-white block font-medium"
+            onClick={() => navigate("/forgot-password")}
+          >
             forgot password?
           </a>
           <Button
@@ -64,11 +71,11 @@ function Login() {
         <h3 className="my-2 font-medium  dark:text-white">
           login by another way?
         </h3>
-        <Button className="mt-2 w-full bg-[#DB4437] font-semibold mb-2">
+        <Button
+          className="mt-2 w-full bg-[#DB4437] font-semibold mb-2"
+          onClick={() => google()}
+        >
           Google
-        </Button>
-        <Button className="mt-2 w-full bg-black dark:bg-white dark:text-black text-white font-semibold">
-          Apple
         </Button>
       </div>
     </div>
